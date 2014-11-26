@@ -2,3 +2,5 @@
 *
 # Except this file
 !.gitignore
+!01_deny.sh
+!02_allow.sh
