@@ -43,4 +43,7 @@ if [ "$REALIP" != "" ]; then
   # iptables -t nat -A PREROUTING -p tcp -d $REALIP --dport 445     -j DNAT --to 192.168.9.13:445
   # iptables -t nat -A PREROUTING -p udp -d $REALIP --dport 445     -j DNAT --to 192.168.9.13:445
 
+
+  :
 fi
+
