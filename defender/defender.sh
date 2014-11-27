@@ -101,6 +101,24 @@ function load_modules () {
         eval echo "Router Setting Done."  ${out_fd}
       ;;
     esac
+
+    ########################################################################
+    # 載入使用者自訂模組
+    ########################################################################
+    if [ "$USER_MOD_PATH" != "" ]; then
+
+      eval echo                                 ${out_fd}
+      eval echo "\| Starting User Modules..."   ${out_fd}
+      eval echo "----------------------------"  ${out_fd}
+      user_modules=`ls ${USER_MOD_PATH} | sort`
+      for run_module in $user_modules
+      do
+         eval echo "Load User module : ${run_module}"  ${out_fd}
+         ${USER_MOD_PATH}/${run_module}
+      done
+      eval echo "User Modules Setting Done."  ${out_fd}
+
+    fi
 }
 
 ########################################################################
@@ -189,7 +207,15 @@ esac
   FIREWALL_MOD_PATH=$script_path/firewall.d            # firewall 模組的路徑
   QOS_MOD_PATH=$script_path/qos.d                      # QoS 模組的路徑
   ROUTER_MOD_PATH=$script_path/router.d                # Router 模組的路徑
-
+  USER_MOD_PATH=""                                     # 使用者自訂模組路徑
+  if [ "$USER_MODULE_DIR" != "" ]; then
+    if [ -d $script_path/$USER_MODULE_DIR ]; then
+      USER_MOD_PATH=$script_path/$USER_MODULE_DIR
+    else
+      echo "Can't find dir $script_path/$USER_MODULE_DIR" >&2
+      exit 1
+    fi
+  fi
 
 ########################################################################
 #  個人化設定啊！請自行填寫您自己想要預先啟動的一些基礎資料。
