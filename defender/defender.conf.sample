@@ -55,6 +55,6 @@
 # 使用者自訂模組之目錄
 # 若無自訂模組目錄, 請寫成USER_MODULE_DIR=""
 # 此目錄是使用相對位址, 例如USER_MODULE_DIR="UserDir.d"
-# 則系統會載入/etc/root/defender/UserDir.d/裡面所有的檔案
+# 則系統會載入/root/defender/UserDir.d/裡面所有的檔案
 #----------------------------------------------------------------------
   USER_MODULE_DIR=""
