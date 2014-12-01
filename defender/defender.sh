@@ -3,7 +3,7 @@
 # Functions
 ########################################################################
 function check_ipv4 () {
-    if [ `echo $1 | grep -E '^((25[0-5]|2[0-4][0-9]|[01]?[1-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[1-9][0-9]?)$'  | grep -o "\." | wc -l` -eq 3 ];
+    if [ `echo $1 | grep -E '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'  | grep -o "\." | wc -l` -eq 3 ];
     then 
       ipv4=true;
     else 
@@ -182,6 +182,7 @@ esac
   esac
 
   if [ "$REALIP" == "AUTO" ]; then
+    sleep 10                                                # 等待$EXTIF 介面穩定(ex: ppp0)
     REALIP=`${script_path}/get_intf_ip.sh ${EXTIF}`         # 自動偵測真實IP
   else
     if [ "$ALWAYS_DETECT_REALIP" == "1" ]; then
