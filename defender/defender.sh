@@ -103,6 +103,25 @@ function load_modules () {
     esac
 
     ########################################################################
+    # 載入 IP 被改變時之設定
+    ########################################################################
+    case "$IS_REALIP_FIXED" in
+      [nN]|[nN][oO])
+        eval echo                                      ${out_fd}
+        eval echo "\| Starting IP_Changed Modules..."  ${out_fd}
+        eval echo "---------------------------------"  ${out_fd}
+        ipchanged_modules=`ls ${IP_CHANGED_MOD_PATH} | sort`
+        for run_module in $ipchanged_modules 
+        do 
+           eval echo "Load ip_changed module : ${run_module}"  ${out_fd}
+           ${IP_CHANGED_MOD_PATH}/${run_module}
+        done
+        eval echo "IP_Changed Setting Done."  ${out_fd}
+      ;;
+    
+    esac
+
+    ########################################################################
     # 載入使用者自訂模組
     ########################################################################
     if [ "$USER_MOD_PATH" != "" ]; then
@@ -153,7 +172,7 @@ case "$1" in
    eval echo "---------------------" ${out_fd}
    ;;
   *)
-   eval echo "Usage: $this_script {start|stop} [daemon]" >&2
+   eval echo "Usage: $this_script {start\|stop} [daemon]" >&2
    exit 1
    ;;
 esac
@@ -208,6 +227,7 @@ esac
   FIREWALL_MOD_PATH=$script_path/firewall.d            # firewall 模組的路徑
   QOS_MOD_PATH=$script_path/qos.d                      # QoS 模組的路徑
   ROUTER_MOD_PATH=$script_path/router.d                # Router 模組的路徑
+  IP_CHANGED_MOD_PATH=$script_path/ip_changed.d        # IP 變化之模組的路徑
   USER_MOD_PATH=""                                     # 使用者自訂模組路徑
   if [ "$USER_MODULE_DIR" != "" ]; then
     if [ -d $script_path/$USER_MODULE_DIR ]; then
