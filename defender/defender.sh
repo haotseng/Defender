@@ -183,7 +183,7 @@ esac
   if [ -f $script_path/defender.conf ]; then
     . $script_path/defender.conf
   else
-    eval echo "Can't find $script_path/defender.conf file!!" >&2
+    eval echo "Can\'t find $script_path/defender.conf file!!" >&2
     exit 1
   fi
 
@@ -214,7 +214,7 @@ esac
 
   check_ipv4 $REALIP      # call check_ipv4()
   if [ "$ipv4" != "true" ]; then
-    eval echo "$REALIP isn't a IPV4 format" >&2
+    eval echo "$REALIP isn\'t a IPV4 format" >&2
     exit 1
   fi
 
@@ -233,7 +233,7 @@ esac
     if [ -d $script_path/$USER_MODULE_DIR ]; then
       USER_MOD_PATH=$script_path/$USER_MODULE_DIR
     else
-      echo "Can't find dir $script_path/$USER_MODULE_DIR" >&2
+      echo "Can\'t find dir $script_path/$USER_MODULE_DIR" >&2
       exit 1
     fi
   fi
@@ -316,6 +316,7 @@ esac
 ########################################################################
 # Main Loop
 ########################################################################
+  loop_cnt=0
   
   reset_iptables    # call reset_iptables()
 
@@ -328,11 +329,13 @@ esac
     while [ "$ALWAYS_DETECT_REALIP" == "1" ]
     do
       sleep 60     # 每分鐘偵測一次IP
+      loop_cnt=`echo "$loop_cnt+1" | bc`
 
       eval echo "Detecting the realip.." ${out_fd}
       new_ip=`${script_path}/get_intf_ip.sh ${EXTIF}`         # 自動偵測真實IP
 
-      if [ "$new_ip" != "$REALIP" ]; then                     # 檢查IP是否有變化?
+      if [ "$new_ip" != "$REALIP" -o $loop_cnt -ge "240" ]; then   # 檢查IP是否有變化? 或者每4小時執行一次
+        loop_cnt=0 
         check_ipv4 $new_ip                                    # call check_ipv4(), 檢查IPv4格式
         if [ "$ipv4" == "true" ]; then
           # 重新載入所有Defender module
