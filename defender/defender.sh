@@ -297,7 +297,8 @@ esac
 ########################################################################
 # 載入一些有用的核心模組
 ########################################################################
-  modules="ip_tables iptable_mangle iptable_nat ip_nat ip_nat_ftp ip_nat_irc ip_conntrack ip_conntrack_ftp ip_conntrack_irc xt_mark"
+  #modules="ip_tables iptable_mangle iptable_nat ip_nat ip_nat_ftp ip_nat_irc ip_conntrack ip_conntrack_ftp ip_conntrack_irc xt_mark"
+  modules="ip_tables iptable_mangle iptable_nat ip_nat_ftp ip_nat_irc ip_conntrack ip_conntrack_ftp ip_conntrack_irc xt_mark"
   for mod in $modules
   do
 	testmod=`lsmod | grep "^${mod} " | awk '{print $1}'`
