@@ -183,7 +183,7 @@ esac
   if [ -f $script_path/defender.conf ]; then
     . $script_path/defender.conf
   else
-    eval echo "Can't find $script_path/defender.conf file!!" >&2
+    eval echo "Can\'t find $script_path/defender.conf file!!" >&2
     exit 1
   fi
 
@@ -214,7 +214,7 @@ esac
 
   check_ipv4 $REALIP      # call check_ipv4()
   if [ "$ipv4" != "true" ]; then
-    eval echo "$REALIP isn't a IPV4 format" >&2
+    eval echo "$REALIP isn\'t a IPV4 format" >&2
     exit 1
   fi
 
@@ -233,7 +233,7 @@ esac
     if [ -d $script_path/$USER_MODULE_DIR ]; then
       USER_MOD_PATH=$script_path/$USER_MODULE_DIR
     else
-      echo "Can't find dir $script_path/$USER_MODULE_DIR" >&2
+      echo "Can\'t find dir $script_path/$USER_MODULE_DIR" >&2
       exit 1
     fi
   fi
