@@ -329,7 +329,7 @@ esac
     while [ "$ALWAYS_DETECT_REALIP" == "1" ]
     do
       sleep 60     # 每分鐘偵測一次IP
-      loop_cnt=`echo "$loop_cnt+1" | bc`
+      loop_cnt=$((loop_cnt+1))
 
       eval echo "Detecting the realip.." ${out_fd}
       new_ip=`${script_path}/get_intf_ip.sh ${EXTIF}`         # 自動偵測真實IP
